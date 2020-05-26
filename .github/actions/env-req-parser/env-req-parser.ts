@@ -28,10 +28,12 @@ const run = async (): Promise<void> => {
         if (!lines) return
 
         for (var i=0;i<lines.length;i++) {
-            lines[i] = lines[i].toLowerCase()   // convert line to lowercase
-            lines[i] = lines[i].replace(/\s/g, "");  // remove spaces from line
             if (lines[i].startsWith("Application Name:"))
                 appName = lines[i].substring(17,lines[i].length).trim()
+            
+            lines[i] = lines[i].toLowerCase()   // convert line to lowercase
+            lines[i] = lines[i].replace(/\s/g, "");  // remove spaces from line
+            
             if (lines[i].startsWith("-[x]general"))
                 armTemplate = "vmss-windows-nat"
             if (lines[i].startsWith("-[x]web"))
