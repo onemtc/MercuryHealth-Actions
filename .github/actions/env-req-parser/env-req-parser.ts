@@ -30,17 +30,21 @@ const run = async (): Promise<void> => {
         for (var i=0;i<lines.length;i++) {
             if (lines[i].startsWith("Application Name:"))
                 appName = lines[i].substring(17,lines[i].length).trim()
-            if (lines[i].startsWith("- [x] General"))
+            
+            lines[i] = lines[i].toLowerCase()   // convert line to lowercase
+            lines[i] = lines[i].replace(/\s/g, "");  // remove spaces from line
+            
+            if (lines[i].startsWith("-[x]general"))
                 armTemplate = "vmss-windows-nat"
-            if (lines[i].startsWith("- [x] Web"))
+            if (lines[i].startsWith("-[x]web"))
                 armTemplate = "web-app-sql-database"
-            if (lines[i].startsWith("- [x] Serverless"))
+            if (lines[i].startsWith("-[x]serverless"))
                 armTemplate = "function-app"
-            if (lines[i].startsWith("- [x] PCI")) {
+            if (lines[i].startsWith("-[x]pci")) {
                 applyPolicy = true
                 policyName = "Audit PCI"
             }
-            if (lines[i].startsWith("- [x] HIPAA")) {
+            if (lines[i].startsWith("-[x]hipaa")) {
                 applyPolicy = true
                 policyName = "Audit HITRUST/HIPAA"
             }
